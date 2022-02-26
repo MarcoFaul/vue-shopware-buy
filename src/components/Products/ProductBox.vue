@@ -5,10 +5,8 @@
     <a :href="API_URL + '/detail/' + productId" :target="target">
       <article class="overflow-hidden rounded-lg shadow-lg">
 
-      <a href="#">
         <!--        <img v-if="product.cover && product.cover.media" alt="Placeholder" class="block h-auto min-h-64 w-full" :src="product.cover.media.url">-->
         <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
-      </a>
 
       <header class="flex items-center justify-between leading-tight p-2 md:p-2">
         <h1 class="text-lg">
