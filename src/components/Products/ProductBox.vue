@@ -40,8 +40,8 @@
         </header>
 
         <body>
-        <div class="h-24 min-h-24 max-h-24">
-          <p class="m-2 text-gray-600 text-sm" v-if="product.translated.description"
+        <div class="h-24 min-h-24 max-h-24 m-2">
+          <p class="text-gray-600 text-sm" v-if="product.translated.description"
              v-html="truncate(product.translated.description, 250, '...')"></p>
         </div>
         </body>
@@ -57,7 +57,7 @@
             </div>
           </div>
           <a :class="[isBuyable ? 'bg-gray-800' : 'pointer-events-none bg-gray-300']"
-             class="float-right px-3 py-2 text-white text-xs font-bold uppercase rounded no-underline"
+             class="inline-flex items-center py-2 px-4 text-sm font-medium text-white rounded hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
              :href="API_URL + '/detail/' + productId">
             Add to Basket
           </a>

@@ -2,7 +2,9 @@
   <div>
     <!-- we need this slot to render multiple custom elements -->
     <slot/>
-    <product-box v-if="product" :product-id="productId" :product="product" :target="target"/>
+    <div v-if="!loading">
+      <product-box v-if="product" :product-id="productId" :product="product" :target="target"/>
+    </div>
   </div>
 </template>
 
@@ -37,7 +39,7 @@ onMounted(() => {
     if (!response.data || !response.data.product) {
       throw {
         name: "Request Exception",
-        message: 'Bla',
+        message: 'Invalid Request',
         toString: function () {
           return this.name + ": " + this.message;
         }
