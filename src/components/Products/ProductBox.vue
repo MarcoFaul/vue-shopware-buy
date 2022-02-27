@@ -5,117 +5,74 @@
     <a :href="API_URL + '/detail/' + productId" :target="target">
       <article class="overflow-hidden rounded-lg shadow-lg">
 
-        <!--        <img v-if="product.cover && product.cover.media" alt="Placeholder" class="block h-auto min-h-64 w-full" :src="product.cover.media.url">-->
-        <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
+            <img v-if="product.cover && product.cover.media" :alt="product.cover.media.fileName + '.' + product.cover.media.fileExtension" class="object-cover h-96 w-full" :src="product.cover.media.url">
+            <img v-else class="object-cover h-96 w-full" src="src/assets/img/placeholder.png">
 
-      <header class="flex items-center justify-between leading-tight p-2 md:p-2">
-        <h1 class="text-lg">
-          {{ product.translated.name }}
-        </h1>
-        <div class="flex item-center -mt-14">
-          <!--          <div class="flex" v-if="product.cmsPage && product.cmsPage.sections[0].blocks[1].slots[0].data.reviews.matrix.totalReviewCount > 0">-->
-          <div class="flex">
-            <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
-              <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-            </svg>
-            <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
-              <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-            </svg>
-            <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
-              <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-            </svg>
-            <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">
-              <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-            </svg>
-            <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">
-              <path
-                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-            </svg>
+        <header class="flex items-align justify-between leading-tight p-2 md:p-2 m-h-14 h-14">
+          <p class="text-lg mr-1">
+            {{ truncate(product.translated.name, 50, '...') }}
+          </p>
+          <div class="flex item-center">
+            <!--          <div class="flex" v-if="product.cmsPage && product.cmsPage.sections[0].blocks[1].slots[0].data.reviews.matrix.totalReviewCount > 0">-->
+            <div class="flex">
+              <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                <path
+                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+              </svg>
+              <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                <path
+                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+              </svg>
+              <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">
+                <path
+                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+              </svg>
+              <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">
+                <path
+                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+              </svg>
+              <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">
+                <path
+                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+              </svg>
+            </div>
           </div>
+        </header>
+
+        <body>
+        <div class="h-24 min-h-24 max-h-24">
+          <p class="m-2 text-gray-600 text-sm" v-if="product.translated.description"
+             v-html="truncate(product.translated.description, 250, '...')"></p>
         </div>
-      </header>
+        </body>
 
-      <body>
-      <p class="mt-2 text-gray-600 text-sm" v-html="product.description"></p>
-      </body>
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <div class="flex" v-if="product.calculatedPrice">
+            <div class="text-gray-700 font-bold text-xl">
+              {{ product.calculatedPrice.totalPrice }} €
+            </div>
+            <div class="ml-2 text-red-700 line-through"
+                 v-if="product.calculatedPrice && product.calculatedPrice.listPrice && product.calculatedPrice.listPrice.price">
+              {{ product.calculatedPrice.listPrice.price }} €
+            </div>
+          </div>
+          <a :class="[isBuyable ? 'bg-gray-800' : 'pointer-events-none bg-gray-300']"
+             class="float-right px-3 py-2 text-white text-xs font-bold uppercase rounded no-underline"
+             :href="API_URL + '/detail/' + productId">
+            Add to Basket
+          </a>
+          <!--          <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
+          <!--            <span class="hidden">Like</span>-->
+          <!--            <i class="fa fa-heart"></i>-->
+          <!--          </a>-->
+        </footer>
 
-      <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-        <h1 class="text-gray-700 font-bold text-xl">
-          <p v-if="product.calculatedPrice">{{ product.calculatedPrice.totalPrice }} €</p>
-        </h1>
-        <a class="flex items-center no-underline hover:underline text-black" href="#">
-          <button class="float-right px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded">
-            <a :href="API_URL + '/detail/' + productId">Add to Basket</a>
-          </button>
-        </a>
-        <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-          <span class="hidden">Like</span>
-          <i class="fa fa-heart"></i>
-        </a>
-      </footer>
-
-    </article>
+      </article>
     </a>
 
+<!--        {{ product }}-->
   </div>
 
-  <!-- we need this slot to render multiple custom elements -->
-  <!--    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" v-if="product && product.id">-->
-  <!--      <div class="py-6">-->
-  <!--        <a :href="API_URL + '/detail/' + productId" :target="target">-->
-  <!--          <div class="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">-->
-  <!--            <div class="w-1/3 bg-cover"-->
-  <!--                 v-if="product.cover && product.cover.media"-->
-  <!--                 :style="{ 'background-image': 'url(' + product.cover.media.url +')'}">-->
-  <!--            </div>-->
-  <!--            <div class="w-2/3 p-4">-->
-  <!--              <h1 class="text-gray-900 font-bold text-2xl">{{ product.name }}</h1>-->
-  <!--              <p class="mt-2 text-gray-600 text-sm" v-html="product.description"></p>-->
-  <!--              <div class="flex item-center mt-2"-->
-  <!--                   v-if="product.cmsPage && product.cmsPage.sections[0].blocks[1].slots[0].data.reviews.matrix.totalReviewCount > 0">-->
-  <!--                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">-->
-  <!--                  <path-->
-  <!--                      d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>-->
-  <!--                </svg>-->
-  <!--                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">-->
-  <!--                  <path-->
-  <!--                      d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>-->
-  <!--                </svg>-->
-  <!--                <svg class="w-5 h-5 fill-current text-gray-700" viewBox="0 0 24 24">-->
-  <!--                  <path-->
-  <!--                      d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>-->
-  <!--                </svg>-->
-  <!--                <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">-->
-  <!--                  <path-->
-  <!--                      d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>-->
-  <!--                </svg>-->
-  <!--                <svg class="w-5 h-5 fill-current text-gray-500" viewBox="0 0 24 24">-->
-  <!--                  <path-->
-  <!--                      d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>-->
-  <!--                </svg>-->
-  <!--              </div>-->
-  <!--              <div class="flex item-center justify-between mt-3">-->
-  <!--                <h1 class="text-gray-700 font-bold text-xl"><p v-if="product.calculatedPrice">-->
-  <!--                  {{ product.calculatedPrice.totalPrice }} €</p></h1>-->
-  <!--                <button class="px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded">-->
-  <!--                  <a :href="API_URL + '/detail/' + productId">Add to Basket</a>-->
-  <!--                </button>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </a>-->
-  <!--      </div>-->
-  <!--      &lt;!&ndash;      {{ productId }}&ndash;&gt;-->
-  <!--      &lt;!&ndash;      <h1 v-if="product.cover && product.cover.media">{{ product.cover.media.url }}</h1>&ndash;&gt;-->
-  <!--      &lt;!&ndash;      <p v-if="product.cmsPage">{{ product.cmsPage.sections[0].blocks[1].slots[0].data.reviews.matrix }}</p>&ndash;&gt;-->
-  <!--      &lt;!&ndash;      <p v-if="product.cmsPage">{{ product.cmsPage.sections[0].blocks[1].slots[0].data.reviews.matrix.pointSum }}</p>&ndash;&gt;-->
-  <!--      &lt;!&ndash;      {{ product }}&ndash;&gt;-->
-
-  <!--    </div>-->
   <div v-else>
     <strong>Invalid product id: <u>{{ props.productId }}</u></strong>
   </div>
@@ -123,6 +80,8 @@
 </template>
 
 <script setup>
+
+import {computed} from 'vue';
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -147,6 +106,19 @@ const props = defineProps({
     }
   }
 });
+
+function truncate(text, length, suffix) {
+  if (text && text.length > length) {
+    return text.substring(0, length) + suffix;
+  } else {
+    return text;
+  }
+}
+
+const isBuyable = computed(() => {
+  return props.product && (props.product.stock > 0 && props.product.isCloseout == 1);
+});
+
 </script>
 
 <style>
