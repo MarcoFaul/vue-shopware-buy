@@ -26,7 +26,7 @@
             Prev
           </button>
           <button @click="fetchProductPage"
-                  :class="[products.length === 0 && !loading ? 'pointer-events-none bg-gray-300' : 'bg-gray-800 hover:bg-gray-900 dark:hover:bg-gray-700 dark:hover:text-white']"
+                  :class="[products.length !== limit && !loading ? 'pointer-events-none bg-gray-300' : 'bg-gray-800 hover:bg-gray-900 dark:hover:bg-gray-700 dark:hover:text-white']"
                   class="inline-flex items-center py-2 px-4 text-sm font-medium text-white rounded-r dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
             Next
             <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -132,7 +132,7 @@ const articleCountFrom = computed(() => {
 
 
 const articleCountTo = computed(() => {
-  return articleCountFrom.value + props.limit;
+  return articleCountFrom.value + products.value.length;
 });
 
 onMounted(() => {
