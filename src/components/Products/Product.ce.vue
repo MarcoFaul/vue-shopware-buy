@@ -2,9 +2,7 @@
   <div>
     <!-- we need this slot to render multiple custom elements -->
     <slot/>
-    <div v-if="!loading">
-      <product-box v-if="product" :product-id="productId" :product="product" :target="target"/>
-    </div>
+    <product-box :loading="loading" :product-id="productId" :product="product" :target="target"/>
   </div>
 </template>
 
